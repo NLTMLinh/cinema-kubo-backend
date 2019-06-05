@@ -49,7 +49,7 @@ exports.create = (req, res) => {
     })
     .catch(err =>
       res.status(500).send({
-        message: err.message + ", Id not exist in branch table"
+        message: err.message + ", Id not exist in branch table."
       })
     );
 };
