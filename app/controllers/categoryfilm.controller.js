@@ -11,6 +11,7 @@ exports.read = (req, res) => {
       });
     });
 };
+
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.name) {

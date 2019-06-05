@@ -23,6 +23,10 @@ mongoose
   });
 
 require("./app/routes/categoryfilm.route.js")(app);
+require("./app/routes/user.route")(app);
+require("./app/routes/branch.route")(app);
+require("./app/routes/img-branch.route")(app);
+
 app.get("/", (req, res) => {
   res.json({ message: "Simple app" });
 });
