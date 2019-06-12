@@ -31,8 +31,10 @@ exports.create = (req, res) => {
     email: req.body.email,
     password: req.body.password,
     phone: req.body.phone,
-    type: req.body.type,
-    point: req.body.point
+    typeuser: req.body.typeuser,
+    point: req.body.point,
+    branchfavo: req.body.branchfavo || "",
+    typefavo: req.body.typefavo || ""
   });
 
   // Save Note in the database
