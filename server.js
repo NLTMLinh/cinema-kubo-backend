@@ -32,6 +32,7 @@ require('./app/routes/user-typefavorite.route')(app);
 require('./app/routes/film.route')(app);
 require('./app/routes/img-film.route')(app);
 require('./app/routes/room.route')(app);
+require('./app/routes/typeuser.route')(app);
 
 app.get('/', (req, res) => {
 	res.json({ message: 'Simple app' });

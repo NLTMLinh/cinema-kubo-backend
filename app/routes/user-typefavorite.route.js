@@ -1,6 +1,7 @@
-module.exports = app => {
-    const typeFavo = require("../controllers/user-typefavorite.controller");
+module.exports = (app) => {
+	const typeFavo = require('../controllers/user-typefavorite.controller');
 
-    app.get("/type-favo", typeFavo.read);
-    app.post("/type-favo", typeFavo.create);
+	app.get('/type-favo', typeFavo.read);
+	app.post('/type-favo', typeFavo.create);
+	app.delete('/type-favo', typeFavo.delete);
 };

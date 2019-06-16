@@ -1,32 +1,32 @@
 {
-  "name": "cinema-kubo-backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MyLinhIT/cinema-kubo-backend.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MyLinhIT/cinema-kubo-backend/issues"
-  },
-  "homepage": "https://github.com/MyLinhIT/cinema-kubo-backend#readme",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-fileupload": "^1.1.5",
-    "image-type": "^4.1.0",
-    "imgur-uploader": "^4.2.1",
-    "mongoose": "^5.5.12",
-    "morgan": "^1.9.1",
-    "nodemon": "^1.19.1",
-    "read-chunk": "^3.2.0"
-  }
+	"name": "cinema-kubo-backend",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MyLinhIT/cinema-kubo-backend.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/MyLinhIT/cinema-kubo-backend/issues"
+	},
+	"homepage": "https://github.com/MyLinhIT/cinema-kubo-backend#readme",
+	"dependencies": {
+		"body-parser": "^1.19.0",
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"express-fileupload": "^1.1.5",
+		"image-type": "^4.1.0",
+		"imgur-uploader": "^4.2.1",
+		"mongoose": "^5.5.12",
+		"morgan": "^1.9.1",
+		"nodemon": "^1.19.1",
+		"read-chunk": "^3.2.0"
+	}
 }
