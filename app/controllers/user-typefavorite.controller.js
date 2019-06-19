@@ -1,19 +1,22 @@
-const TypeFavo = require('../models/user-typefavorite.model');
 const Type = require('../models/typefilm.model');
+const TypeFavo = require('../models/user-typefavorite.model');
 const User = require('../models/user.model');
 const ObjectId = require('mongoose').Types.ObjectId;
 const Const = require('../../constants');
 
+//input query: id user
 exports.read = (req, res) => {
-	TypeFavo.find()
-		.then((idtype_iduser) => {
-			res.send(idtype_iduser);
+	TypeFavo.find({ iduser: req.query.iduser })
+		.populate('idtype')
+		.exec((err, result) => {
+			if (err) {
+				res.status(500).send({
+					message: err.message || 'Some error occurred while retrieving typeFavorites.'
+				});
+			} else {
+				res.send(result);
+			}
 		})
-		.catch((err) => {
-			res.status(500).send({
-				message: err.message || 'Some error occurred while retrieving typeFavorites.'
-			});
-		});
 };
 
 //input query: id user, id type

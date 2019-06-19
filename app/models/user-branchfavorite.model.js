@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const UserBranchFavoSchema = mongoose.Schema({
   iduser: {
@@ -7,7 +8,8 @@ const UserBranchFavoSchema = mongoose.Schema({
   },
   idbranch: {
     type: mongoose.Schema.Types.ObjectId,
-    require: true
+    require: true,
+    ref: 'Branch'
   }
 });
 

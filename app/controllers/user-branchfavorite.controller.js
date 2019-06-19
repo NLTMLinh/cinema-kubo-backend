@@ -3,16 +3,28 @@ const Branch = require('../models/branch.model');
 const User = require('../models/user.model');
 const Const = require('../../constants');
 const ObjectId = require('mongoose').Types.ObjectId;
+
+//input query: iduser
 exports.read = (req, res) => {
-	BranchFavo.find()
-		.then((idbranch_iduser) => {
-			res.send(idbranch_iduser);
+	BranchFavo.find({ iduser: req.query.iduser })
+		.populate('idbranch')
+		.exec((err, result) => {
+			if (err) {
+				res.status(500).send({
+					message: err.message || 'Some error occurred while retrieving typeFavorites.'
+				});
+			} else {
+				res.send(result);
+			}
 		})
-		.catch((err) => {
-			res.status(500).send({
-				message: err.message || 'Some error occurred while retrieving notes.'
-			});
-		});
+	// .then((idbranch_iduser) => {
+	// 	res.send(idbranch_iduser);
+	// })
+	// .catch((err) => {
+	// 	res.status(500).send({
+	// 		message: err.message || 'Some error occurred while retrieving notes.'
+	// 	});
+	// });
 };
 
 //input query: idbranch, iduser

@@ -1,15 +1,16 @@
 const mongoose = require("mongoose");
+const ObjectId = require('mongoose').Types.ObjectId;
 
-const UserTypeFavoSchema = mongoose.Schema({
+const UserFilmFavoSchema = mongoose.Schema({
     iduser: {
         type: mongoose.Schema.Types.ObjectId,
         require: true
     },
-    idtype: {
+    idfilm: {
         type: mongoose.Schema.Types.ObjectId,
         require: true,
-        ref: 'TypeFilm'
+        ref: 'Film'
     }
 });
 
-module.exports = mongoose.model("TypeFavorite", UserTypeFavoSchema);
+module.exports = mongoose.model("FilmFavorite", UserFilmFavoSchema);
