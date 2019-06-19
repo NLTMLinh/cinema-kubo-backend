@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 const CommentSchema = mongoose.Schema({
-	idUser: {
+	iduser: {
 		type: String,
-		require: true
+		require: true,
+		ref: 'User'
 	},
 	idfilm: {
 		type: String,

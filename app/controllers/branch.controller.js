@@ -14,7 +14,19 @@ exports.read = (req, res) => {
 			});
 		});
 };
-
+//input in query: id branch	as id
+exports.getOne = (req, res) => {
+	const idbranch = req.query.id || '';
+	Branch.findById(idbranch)
+		.then((branch) => {
+			res.send(branch);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: err.message || 'Some error occurred while retrieving notes.'
+			});
+		});
+};
 exports.create = (req, res) => {
 	// Validate request
 	if (!req.files) {
@@ -70,3 +82,49 @@ exports.create = (req, res) => {
 			})
 		);
 };
+
+//input in query: id branch	as id
+// NOT update img
+exports.update = async (req, res) => {
+	const idbranch = req.query.id;
+	if (!req.body.name || !req.body.address || !req.body.status) {
+		return res.status(400).send({
+			message: 'Data can not be empty'
+		});
+	}
+
+	await Branch.updateOne({ _id: idbranch }, {
+		name: req.body.name,
+		address: req.body.address
+	}, (err, result) => {
+		if (err) {
+			res.status(400).send({
+				isSuccess: false
+			})
+		} else {
+			res.status(200).send({
+				isSuccess: true,
+				result
+			})
+		}
+	})
+};
+//input query: id branch as id
+exports.delete = async (req, res) => {
+	const idbranch = req.query.id || '';
+
+	await Branch.updateOne({ _id: idbranch }, {
+		status: false
+	}, (err) => {
+		if (err) {
+			res.status(400).send({
+				isSuccess: false
+			})
+		} else {
+			res.status(200).send({
+				isSuccess: true
+			})
+		}
+	})
+
+}

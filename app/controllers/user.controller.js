@@ -94,3 +94,19 @@ exports.update = async (req, res) => {
 		}
 	);
 };
+
+// input query: idUser
+exports.delete = async (req, res) => {
+	const idUser = req.query.id;
+	await User.deleteOne({ _id: idUser }, (err) => {
+		if (err) {
+			res.send({
+				issuccess: false
+			})
+		} else {
+			res.send({
+				issuccess: true
+			})
+		}
+	})
+}
