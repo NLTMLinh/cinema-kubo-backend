@@ -6,4 +6,5 @@ module.exports = app => {
     app.post("/film", film.create);
     app.put("/film", film.update);
     app.delete("/film", film.delete);
+    app.get("/film-type", film.getFilmsInType);
 };

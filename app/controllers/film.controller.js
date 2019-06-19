@@ -190,7 +190,7 @@ exports.delete = (req, res) => {
 };
 
 //get films have the same type
-//input: idTypeFilm
+//input: idTypeFilm as id
 exports.getFilmsInType = async (req, res) => {
 	const typeFilmId = req.query.id;
 	await Film.find({ type: typeFilmId }, (err, result) => {
