@@ -41,51 +41,53 @@ exports.create = async (req, res) => {
 	//check is it exits or not
 	await Schedule.findOne({ idroom, startTime: req.body.startTime || '' }, (err, result) => {
 		if (err || result) {
-			return res.status(500).send({
-				message: err || 'The schedule has been existed',
+			res.status(500).send({
+				message: err || 'The schedule has been existed. The room is in user at this time. Please choose onother time.',
 				isSuccess: false
 			});
+		} else {
+			console.log("id film:", idfilm)
+			Film.findOne({ _id: idfilm, status: true || "true" }, (err, result) => {
+				if (!result) {
+					console.log("result film:", result);
+					return res.status(500).send({
+						message: 'Cannot find film or film was deleted'
+					});
+				}
+				Room.findOne({ _id: idroom, status: true || "true" }, (err, room) => {
+					if (!room) {
+						return res.status(500).send({
+							message: 'Cannot find room or room was deleted',
+							isSuccess: false
+						});
+					}
+					const schedule = new Schedule({
+						idbranch: room.idbranch,
+						idfilm,
+						idroom,
+						startTime: req.body.startTime || Date.now(),
+						endTime: req.body.endTime || '',
+						sumTicket: req.body.sumTicket || 100,
+						availableTicket: req.body.sumTicket || 100
+					})
+					const newSchedule = schedule.save();
+					if (!newSchedule) {
+						return res.status(500).send({
+							message: 'Some thing wrong when save new schedule',
+							isSuccess: false
+						});
+					} else {
+						res.send({
+							isSuccess: true,
+							result: newSchedule
+						})
+					}
+				})
+			})
 		}
 	})
 
-	console.log("id film:", idfilm)
-	await Film.findOne({ _id: idfilm, status: true || "true" }, (err, result) => {
-		if (!result) {
-			console.log("result film:", result);
-			return res.status(500).send({
-				message: 'Cannot find film or film was deleted'
-			});
-		}
-		Room.findOne({ _id: idroom, status: true || "true" }, (err, room) => {
-			if (!room) {
-				return res.status(500).send({
-					message: 'Cannot find room or room was deleted',
-					isSuccess: false
-				});
-			}
-			const schedule = new Schedule({
-				idbranch: room.idbranch,
-				idfilm,
-				idroom,
-				startTime: req.body.startTime || Date.now(),
-				endTime: req.body.endTime || '',
-				sumTicket: req.body.sumTicket || 100,
-				availableTicket: req.body.sumTicket || 100
-			})
-			const newSchedule = schedule.save();
-			if (!newSchedule) {
-				return res.status(500).send({
-					message: 'Some thing wrong when save new schedule',
-					isSuccess: false
-				});
-			} else {
-				res.send({
-					isSuccess: true,
-					result: newSchedule
-				})
-			}
-		})
-	})
+
 };
 
 // //input in query: id schedule	as id
