@@ -109,8 +109,8 @@ exports.update = async (req, res) => {
 		}
 	})
 };
-//input in query: id branch as id
-exports.delete = (req, res) => {
+//input query: id branch as id
+exports.delete = async (req, res) => {
 	const idbranch = req.query.id || '';
 
 	await Branch.updateOne({ _id: idbranch }, {
