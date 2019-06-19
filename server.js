@@ -33,6 +33,7 @@ require('./app/routes/film.route')(app);
 require('./app/routes/img-film.route')(app);
 require('./app/routes/room.route')(app);
 require('./app/routes/typeuser.route')(app);
+require('./app/routes/schedule.route')(app);
 require('./app/routes/user-branchfavorite.route')(app)
 require('./app/routes/user-typefavorite.route')(app)
 require('./app/routes/user-filmfavorite.route')(app)
