@@ -14,7 +14,11 @@ const FilmSchema = mongoose.Schema({
 	isActive: Boolean,
 	rate: Number,
 	point: Number,
-	img: String
+	img: String,
+	status: {
+		type: Boolean,
+		default: true
+	}
 });
 
 module.exports = mongoose.model('Film', FilmSchema);

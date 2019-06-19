@@ -1,8 +1,14 @@
 const ImgFilm = require("../models/img-film.model");
 const Film = require("../models/film.model");
 const ObjectId = require("mongoose").Types.ObjectId;
+
+//input in query: id film
 exports.read = (req, res) => {
-    ImgFilm.find()
+    idfilm = req.query.idfilm || '';
+    if (idfilm === '') {
+        return res.send({ message: `Missing "idfilm" in your query` });
+    }
+    ImgFilm.findOne({ idfilm })
         .then(imgfilm => {
             res.send(imgfilm);
         })
@@ -51,3 +57,19 @@ exports.create = (req, res) => {
             })
         );
 };
+
+//input in query: idfilm
+exports.delete = (req, res) => {
+    const idfilm = req.query.idfilm;
+    ImgFilm.deleteOne({ idfilm }, (err) => {
+        if (err) {
+            res.send({
+                issuccess: false
+            })
+        } else {
+            res.send({
+                issuccess: true
+            })
+        }
+    })
+}

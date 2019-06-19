@@ -3,4 +3,5 @@ module.exports = app => {
 
   app.get("/img-branch", imgbranch.read);
   app.post("/img-branch", imgbranch.create);
+  app.delete("/img-branch", imgbranch.delete)
 };

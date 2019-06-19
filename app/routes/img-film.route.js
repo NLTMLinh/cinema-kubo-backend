@@ -3,4 +3,5 @@ module.exports = app => {
 
     app.get("/img-film", imgfilm.read);
     app.post("/img-film", imgfilm.create);
+    app.delete("/img-film", imgfilm.delete);
 };

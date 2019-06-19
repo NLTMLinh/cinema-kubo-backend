@@ -17,6 +17,18 @@ exports.read = (req, res) => {
 		});
 };
 
+//input query: idFilm
+exports.getOne = (req, res) => {
+	Film.findById(req.query.id)
+		.then((film) => {
+			res.send(film);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: err.message || 'Some error occurred while retrieving notes.'
+			});
+		});
+};
 exports.create = (req, res) => {
 	// Validate request
 	// if (!req.files) {
@@ -167,7 +179,7 @@ exports.update = (req, res) => {
 //input: idFilm
 exports.delete = (req, res) => {
 	const idFilm = req.query.id;
-	Film.deleteOne({ _id, idFilm }, (err, result) => {
+	Film.updateOne({ _id, idFilm }, { status: false }, (err, result) => {
 		if (err) {
 			res.status(500).send({ success: false });
 		} else {
