@@ -1,55 +1,27 @@
 const User = require('../models/user.model');
-const TypeUser = require('../models/typeuser.model');
 
-exports.read = async (req, res) => {
-	await User.find({}, (err, users) => {
-		if (err) {
-			res.status(500).send({
-				message: err.message || 'Some error occurred while retrieving notes.'
-			});
-		} else {
-			TypeUser.find({}, (err, type) => {
-				if (err) {
-					res.status(Const.ERROR_CODE).send({
-						message: 'Some thing wrong'
-					});
-				} else {
-					const result = users.forEach((user) => {
-						const typeUser = type.find((item) => item._id == user._doc.typeuser);
-						const temp = { ...user._doc, typeUser: typeUser };
-						console.log('temp: ', temp);
-						return temp;
-					});
-					console.log('result: ', result);
-					res.send(result);
-				}
-			});
-		}
-	});
-};
+exports.read = (req, res) => {
+	User.find({})
+		.populate('typeuser').exec((err, result) => {
+			if (err) {
+				res.status(Const.SUCCESS_CODE).send(err);
+			} else {
+				res.send(result);
+			}
+		})
+}
 
 //input query: id user
-exports.getOne = async (req, res) => {
-	const id = req.query.id;
-	await User.findById(id, (err, result) => {
-		if (err) {
-			res.status(Const.ERROR_CODE).send({
-				message: 'Some thing wrong'
-			});
-		} else if (result) {
-			const typeId = result.typeuser;
-			TypeUser.findById({ typeId }, (err, type) => {
-				if (err) {
-					res.status(Const.SUCCESS_CODE).send({
-						err
-					});
-				} else {
-					res.send({ ...result, type });
-				}
-			});
-		}
-	});
-};
+exports.getOne = (req, res) => {
+	User.findById(req.query.id)
+		.populate('typeuser').exec((err, result) => {
+			if (err) {
+				res.status(Const.SUCCESS_CODE).send(err);
+			} else {
+				res.send(result);
+			}
+		})
+}
 
 exports.create = (req, res) => {
 	// Validate request
