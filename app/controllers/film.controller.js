@@ -7,6 +7,7 @@ require('express-fileupload');
 
 exports.read = (req, res) => {
 	Film.find()
+		.populate('type')
 		.then((film) => {
 			res.send(film);
 		})
