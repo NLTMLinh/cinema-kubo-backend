@@ -25,26 +25,36 @@ exports.getOne = async (req, res) => {
 	});
 };
 
-//input query: idBranch
-exports.create = (req, res) => {
+//input query: idbranch
+exports.create = async (req, res) => {
 	const idbranch = req.query.idbranch;
 	if (!ObjectId.isValid(idbranch)) {
 		return res.status(400).send({
 			message: 'Id not valid'
 		});
 	}
-	const room = new Room({
-		idbranch: idbranch,
-		sumseat: req.body.sumseat,
-		status: true,
-		nameRoom: req.body.nameRoom
-	});
+	//check name is existed
+	await Room.findOne({ nameRoom: req.body.nameRoom || '' }, (err, result) => {
+		if (err || result) {
+			res.send({
+				message: err || "Name room is existed",
+				isSuccess: false
+			})
+		} else {
+			const room = new Room({
+				idbranch: idbranch,
+				sumseat: req.body.sumseat,
+				status: true,
+				nameRoom: req.body.nameRoom
+			});
 
-	room.save().then((room) => res.send(room)).catch((err) =>
-		res.status(Const.ERROR_CODE).send({
-			message: err.message + 'Some error occured while create a comment'
-		})
-	);
+			room.save().then((room) => res.send(room)).catch((err) =>
+				res.status(Const.ERROR_CODE).send({
+					message: err.message + 'Some error occured while create a comment'
+				})
+			);
+		}
+	})
 };
 
 //input query: idroom

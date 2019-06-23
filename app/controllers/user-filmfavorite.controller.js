@@ -6,7 +6,9 @@ const Const = require('../../constants');
 
 //input query: id user
 exports.read = (req, res) => {
-    TypeFavo.find({ iduser: req.query.iduser })
+    const iduser = req.query.iduser;
+    console.log("iduser: ", iduser);
+    FilmFavo.find({ iduser })
         .populate('idfilm')
         .exec((err, result) => {
             if (err) {
@@ -20,7 +22,7 @@ exports.read = (req, res) => {
 };
 
 //input query: id user, id film
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     const iduser = ObjectId(req.query.iduser);
     const idfilm = ObjectId(req.query.idfilm);
 
@@ -30,18 +32,19 @@ exports.create = (req, res) => {
             message: 'Data can not be empty'
         });
     }
-
-    if (!ObjectId.isValid(idfilm) || !ObjectId.isValid(iduser)) {
-        return res.status(400).send({
-            message: 'Id not valid'
-        });
+    const isExist = await FilmFavo.findOne({ iduser, idfilm }).countDocuments();
+    // console.log("count: ", isExist);
+    if (isExist > 0) {
+        return res.send({
+            message: "data is exist"
+        })
     }
 
-    Type.findById({ _id: idfilm })
+    Film.findById({ _id: idfilm })
         .then((type) => {
             User.findById({ _id: iduser })
                 .then((user) => {
-                    const typefavo = new TypeFavo({
+                    const typefavo = new FilmFavo({
                         idfilm: type._id,
                         iduser: user._id
                     });

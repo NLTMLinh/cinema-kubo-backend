@@ -6,15 +6,16 @@ const Const = require("../../constants");
 require("express-fileupload");
 
 exports.read = (req, res) => {
-  Film.find()
-    .then(film => {
-      res.send(film);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving notes."
-      });
-    });
+	Film.find()
+		.populate('type')
+		.then((film) => {
+			res.send(film);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: err.message || 'Some error occurred while retrieving notes.'
+			});
+		});
 };
 
 //input query: idFilm
@@ -192,7 +193,7 @@ exports.delete = (req, res) => {
 };
 
 //get films have the same type
-//input: idTypeFilm
+//input: idTypeFilm as id
 exports.getFilmsInType = async (req, res) => {
   const typeFilmId = req.query.id;
   console.log("type", typeFilmId);

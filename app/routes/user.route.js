@@ -4,5 +4,5 @@ module.exports = app => {
   app.get("/user/single", user.getOne);
   app.get("/user", user.read);
   app.post("/user", user.create);
-  app.post("/user", user.update);
+  app.put("/user", user.update);
 };

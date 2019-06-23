@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const RoomSchema = mongoose.Schema({
-	idbranch: mongoose.Schema.Types.ObjectId,
+	idbranch: ObjectId,
 	sumseat: Number,
 	nameRoom: String,
 	status: {
-		type: String,
+		type: Boolean,
 		default: true
 	}
 });

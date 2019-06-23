@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const FilmSchema = mongoose.Schema({
 	name: String,
 	description: String,
-	type: mongoose.Types.ObjectId,
+	type: {
+		type: mongoose.Types.ObjectId,
+		ref: 'TypeFilm'
+	},
 	releaseDate: Date,
 	duration: String,
 	director: String,
