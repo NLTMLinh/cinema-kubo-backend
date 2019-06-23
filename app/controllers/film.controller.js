@@ -72,7 +72,8 @@ exports.create = (req, res) => {
         price: req.body.price,
         isActive: req.body.isActive,
         rate: req.body.rate,
-        point: req.body.point
+        point: req.body.point,
+        
       });
 
       film
