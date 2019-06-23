@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Const = require('../../constants');
 
 const UserSchema = mongoose.Schema({
+	username: String,
 	fullname: String,
 	birthday: Date,
-	username: String,
 	email: String,
 	password: String,
 	phone: String,

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Const = require('../../constants');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 
@@ -19,11 +20,15 @@ const ScheduleSchema = mongoose.Schema({
 	endTime: Date,
 	sumTicket: {
 		type: Number,
-		default: 100
+		default: Const.DEFAULT_TICKET
 	},
 	availableTicket: {
 		type: Number,
-		default: 100
+		default: Const.DEFAULT_TICKET
+	},
+	stateSeat: {
+		type: String,
+		default: Const.DEFAULT_STATE_SEAT
 	}
 });
 

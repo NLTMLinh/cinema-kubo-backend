@@ -2,6 +2,8 @@ const Schedule = require('../models/schedule.model');
 const Film = require('../models/film.model.js');
 const Branch = require('../models/branch.model');
 const Room = require('../models/room.model');
+const Promotion = require('../models/promotion.model');
+const Const = require('../../constants');
 
 exports.read = (req, res) => {
 	Schedule.find()
@@ -9,6 +11,11 @@ exports.read = (req, res) => {
 		.populate('idfilm')
 		.populate('idroom')
 		.exec((err, schedule) => {
+			//get promotion base on idfilm
+			// const scheduleAndPromotion = schedule.map(item=>{
+			// 	await Promotion.
+			// })
+
 			if (err) {
 				res.status(500).send({
 					message: err.message || 'Some error occurred while retrieving notes.'
@@ -61,6 +68,7 @@ exports.create = async (req, res) => {
 							isSuccess: false
 						});
 					}
+					const stateSeat = getStateSeat(room.sumseat);
 					const schedule = new Schedule({
 						idbranch: room.idbranch,
 						idfilm,
@@ -68,7 +76,8 @@ exports.create = async (req, res) => {
 						startTime: req.body.startTime || Date.now(),
 						endTime: req.body.endTime || '',
 						sumTicket: req.body.sumTicket || 100,
-						availableTicket: req.body.sumTicket || 100
+						availableTicket: req.body.sumTicket || 100,
+						stateSeat
 					})
 					const newSchedule = schedule.save();
 					if (!newSchedule) {
@@ -90,6 +99,13 @@ exports.create = async (req, res) => {
 
 };
 
+getStateSeat = (number) => {
+	let temp = '';
+	for (let i = 0; i < number; i++) {
+		temp += Const.AVAILABLE_TICKET_SIGN;
+	}
+	return temp;
+}
 // //input in query: id schedule	as id
 // // NOT update img
 // exports.update = async (req, res) => {

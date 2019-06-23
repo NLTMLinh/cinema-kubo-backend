@@ -41,9 +41,13 @@ exports.create = async (req, res) => {
 				isSuccess: false
 			})
 		} else {
+			const sumseat = req.body.sumseat || 0;
+			if (sumseat > Const.MAX_SEAT_ROOM || sumseat < Const.MIN_SEAT_ROOM) {
+				sumseat = Const.DEFAULT_SEAT_ROM;
+			}
 			const room = new Room({
 				idbranch: idbranch,
-				sumseat: req.body.sumseat,
+				sumseat: sumseat,
 				status: true,
 				nameRoom: req.body.nameRoom
 			});

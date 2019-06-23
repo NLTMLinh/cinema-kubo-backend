@@ -37,7 +37,6 @@ require('./app/routes/schedule.route')(app);
 require('./app/routes/user-branchfavorite.route')(app)
 require('./app/routes/user-typefavorite.route')(app)
 require('./app/routes/user-filmfavorite.route')(app)
-require('./app/routes/promotion.route')(app)
 
 app.get('/', (req, res) => {
 	res.json({ message: 'Simple app' });
