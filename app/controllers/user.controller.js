@@ -28,7 +28,6 @@ exports.create = (req, res) => {
 	if (
 		!req.body.fullname ||
 		!req.body.birthday ||
-		!req.body.username ||
 		!req.body.email ||
 		!req.body.password ||
 		!req.body.phone
@@ -42,7 +41,6 @@ exports.create = (req, res) => {
 	const user = new User({
 		fullname: req.body.fullname,
 		birthday: req.body.birthday,
-		username: req.body.username,
 		email: req.body.email,
 		password: req.body.password,
 		phone: req.body.phone,
@@ -67,7 +65,7 @@ exports.create = (req, res) => {
 exports.update = async (req, res) => {
 	const id = req.query.id;
 	// Validate request
-	if (!req.body.fullname || !req.body.birthday || !req.body.username || !req.body.password || !req.body.phone) {
+	if (!req.body.fullname || !req.body.birthday || !req.body.password || !req.body.phone) {
 		return res.status(400).send({
 			message: 'Data can not be empty'
 		});
@@ -78,7 +76,6 @@ exports.update = async (req, res) => {
 		{
 			fullname: req.body.fullname,
 			birthday: req.body.birthday,
-			username: req.body.username,
 			phone: req.body.phone
 		},
 		(err, result) => {
