@@ -29,20 +29,33 @@ exports.getOne = (req, res) => {
 
 //input in query: idfilm, (and idtypeuser)
 exports.findPromotion = (req, res) => {
-	const idFilm = req.query.idfilm || '';
-	const idTypeUser = req.query.idtypeuser || { $ne: null };
-
-	Promotion.find({ idTypeUser, idFilm, status: true })
+	const anIdFilm = req.query.idfilm || '';
+	const anIdTypeUser = req.query.idtypeuser || { $ne: null };
+	console.log("idfilm: ", anIdFilm, "- idtypeuser: ", anIdTypeUser);
+	Promotion.find({ idTypeUser: anIdTypeUser, idFilm: anIdFilm, status: true })
 		.populate('idTypeUser')
 		// .populate('idFilm')
 		.sort({ discount: -1 })
 		.exec((err, promotion) => {
 			if (err) {
+				console.log("Has err: ", err);
 				res.send(err);
 			} else {
-				res.send(promotion);
+				const result = promotion.filter(item => {
+					const start = new Date(item.startTime);
+					const end = new Date(item.endTime);
+					const now = new Date();
+					if (now >= start && now <= end) {
+						return item;
+					}
+				})
+
+				console.log("result promotion: ", result);
+
+				res.send(result);
 			}
-		})
+		}
+		)
 };
 
 exports.create = (req, res) => {

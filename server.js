@@ -38,6 +38,8 @@ require('./app/routes/user-branchfavorite.route')(app)
 require('./app/routes/user-typefavorite.route')(app)
 require('./app/routes/user-filmfavorite.route')(app)
 require('./app/routes/promotion.route')(app)
+require('./app/routes/type-payment.route')(app)
+require('./app/routes/bill.route')(app)
 
 app.get('/', (req, res) => {
 	res.json({ message: 'Simple app' });
