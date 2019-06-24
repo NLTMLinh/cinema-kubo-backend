@@ -23,6 +23,10 @@ exports.getOne = (req, res) => {
 	})
 }
 
+String.prototype.replaceAt = (pos, repalce, str) => {
+	return str.substring(0, pos) + repalce + str.substring(pos + 1, str.length);
+}
+
 exports.create = (req, res) => {
 	const idUser = req.body.idUser;
 	const idPromotion = req.body.idPromotion || '';
@@ -47,12 +51,16 @@ exports.create = (req, res) => {
 				message: 'Schedule not found'
 			});
 		} else {
+			const availableTicket = schedule.availableTicket;
 			let stateSeat = schedule.stateSeat;
+			console.log("seat arr: ", seat);
 			seat.forEach(element => {
-				stateSeat[element] = Const.UNAVAILABLE_TICKET_SIGN;
+				stateSeat = stateSeat.replaceAt(element, Const.UNAVAILABLE_TICKET_SIGN, stateSeat);
+				console.log("in change...: ", stateSeat);
 			});
 			console.log("seat state after: ", stateSeat);
-			Schedule.updateOne({ _id: idSchedule }, { stateSeat }, (err, result) => {
+
+			Schedule.updateOne({ _id: idSchedule }, { stateSeat, availableTicket: availableTicket - seat.length }, (err, result) => {
 				if (err) {
 					return res.status(400).send({
 						message: 'Update schedule seatstate failed!'

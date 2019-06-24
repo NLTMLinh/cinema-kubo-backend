@@ -63,9 +63,9 @@ exports.create = (req, res) => {
 
 // input query: idUser
 exports.update = async (req, res) => {
-	const id = req.query.id;
+	const id = req.body.id;
 	// Validate request
-	if (!req.body.fullname || !req.body.birthday || !req.body.password || !req.body.phone) {
+	if (!req.body.fullname || !req.body.birthday || !req.body.phone || !req.body.email) {
 		return res.status(400).send({
 			message: 'Data can not be empty'
 		});
@@ -84,9 +84,15 @@ exports.update = async (req, res) => {
 					message: 'Some thing wrong'
 				});
 			} else {
-				res.status(200).send({
-					result
-				});
+				console.log("user updated: ", result);
+				// res.status(200).send({
+				// 	result
+				// });
+
+				//follow front-end redx-saga, have to return all users
+				User.find({}, (err, allusers) => {
+					res.send(allusers);
+				})
 			}
 		}
 	);
